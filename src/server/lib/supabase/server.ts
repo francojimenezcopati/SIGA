@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 import { getPublicEnv } from "@/lib/env";
+import type { Database } from "@/server/lib/supabase/database.types";
 
 /**
  * Cliente de Supabase para el SERVIDOR ligado a la sesión del usuario (vía
@@ -15,7 +16,7 @@ export async function createSupabaseServerClient() {
   const { NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY } =
     getPublicEnv();
 
-  return createServerClient(
+  return createServerClient<Database>(
     NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
@@ -37,3 +38,8 @@ export async function createSupabaseServerClient() {
     },
   );
 }
+
+/** Tipo del cliente server, tipado con el esquema de la base. */
+export type SupabaseServerClient = Awaited<
+  ReturnType<typeof createSupabaseServerClient>
+>;
