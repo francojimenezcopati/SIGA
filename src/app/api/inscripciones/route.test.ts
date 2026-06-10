@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
-import { GET, POST } from '../../app/api/inscripciones/route';
-import { InscripcionController } from '../../server/controllers/inscripcion.controller';
+import { GET, POST } from './route';
+import { InscripcionController } from '@/server/controllers/inscripcion.controller';
 
-vi.mock('../../server/controllers/inscripcion.controller', () => {
+vi.mock('@/server/controllers/inscripcion.controller', () => {
   return {
     InscripcionController: vi.fn().mockImplementation(() => ({
       getAll: vi.fn().mockResolvedValue(new Response(JSON.stringify([{ id: '1' }]), { status: 200 })),

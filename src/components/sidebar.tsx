@@ -30,19 +30,22 @@ type NavItem = {
 const NAV: Record<UserRole, NavItem[]> = {
   estudiante: [
     { href: "/dashboard/materias", label: "Materias", icon: BookOpenIcon, enabled: true },
-    { href: "/dashboard/notas", label: "Notas", icon: GraduationCapIcon, enabled: false },
+    { href: "/dashboard/inscripciones", label: "Inscripciones", icon: BookOpenIcon, enabled: true },
+    { href: "/dashboard/notas", label: "Notas", icon: GraduationCapIcon, enabled: true },
     { href: "/dashboard/tps", label: "Trabajos prácticos", icon: FileTextIcon, enabled: false },
     { href: "/dashboard/calendario", label: "Calendario", icon: CalendarIcon, enabled: false },
-    { href: "/dashboard/avisos", label: "Avisos", icon: MegaphoneIcon, enabled: false },
+    { href: "/dashboard/avisos", label: "Avisos", icon: MegaphoneIcon, enabled: true },
   ],
   docente: [
     { href: "/dashboard/materias", label: "Materias", icon: BookOpenIcon, enabled: true },
-    { href: "/dashboard/avisos", label: "Avisos", icon: MegaphoneIcon, enabled: false },
+    { href: "/dashboard/notas", label: "Notas", icon: GraduationCapIcon, enabled: true },
+    { href: "/dashboard/avisos", label: "Avisos", icon: MegaphoneIcon, enabled: true },
     { href: "/dashboard/calendario", label: "Calendario", icon: CalendarIcon, enabled: false },
   ],
   administrador: [
     { href: "/dashboard/materias", label: "Materias", icon: BookOpenIcon, enabled: true },
-    { href: "/dashboard/usuarios", label: "Usuarios", icon: UsersIcon, enabled: false },
+    { href: "/dashboard/admin/usuarios", label: "Usuarios", icon: UsersIcon, enabled: true },
+    { href: "/dashboard/avisos", label: "Avisos", icon: MegaphoneIcon, enabled: true },
     { href: "/dashboard/periodos", label: "Períodos", icon: CalendarIcon, enabled: false },
   ],
 };

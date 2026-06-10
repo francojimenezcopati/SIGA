@@ -7,11 +7,11 @@ vi.mock('../../server/repositories/inscripcion.repository');
 
 describe('InscripcionService', () => {
   let service: InscripcionService;
-  let mockRepo: vi.Mocked<InscripcionRepository>;
+  let mockRepo: any;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    mockRepo = new InscripcionRepository() as vi.Mocked<InscripcionRepository>;
+    mockRepo = new InscripcionRepository() as any;
     service = new InscripcionService(mockRepo);
   });
 

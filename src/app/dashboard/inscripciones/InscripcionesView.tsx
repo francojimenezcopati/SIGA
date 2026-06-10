@@ -17,9 +17,12 @@ interface Materia {
   id: string;
   codigo: string;
   nombre: string;
-  creditos: number;
-  semestre: number;
-  cupos_disponibles: number;
+  creditos?: number;
+  semestre?: number;
+  cupos_disponibles?: number;
+  cupo?: number;
+  periodo?: string | null;
+  descripcion?: string | null;
 }
 
 export function InscripcionesView({ initialRole }: InscripcionesViewProps) {
@@ -155,11 +158,11 @@ export function InscripcionesView({ initialRole }: InscripcionesViewProps) {
                         <Badge variant="outline">{materia.codigo}</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Semestre {materia.semestre} • {materia.creditos} créditos
+                        Semestre {materia.semestre ?? 1} • {materia.creditos ?? 4} créditos
                       </p>
                       <div className="flex gap-2">
                         <Badge variant="secondary">
-                          Cupos: {materia.cupos_disponibles}
+                          Cupos: {materia.cupos_disponibles ?? materia.cupo ?? '-'}
                         </Badge>
                       </div>
                     </div>
@@ -208,7 +211,7 @@ export function InscripcionesView({ initialRole }: InscripcionesViewProps) {
                         <Badge variant="outline">{inscripcion.materia.codigo}</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Semestre {inscripcion.materia.semestre} • {inscripcion.materia.creditos} créditos
+                        Semestre {inscripcion.materia.semestre ?? 1} • {inscripcion.materia.creditos ?? 4} créditos
                       </p>
                       <Badge variant="secondary" className="text-xs">
                         Inscrito: {new Date(inscripcion.fecha_inscripcion).toLocaleDateString()}
