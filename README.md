@@ -293,4 +293,3 @@ Diapositivas con el diagrama de arquitectura, el listado de endpoints en formato
 | **Sergio** | Frontend | Implementó los componentes reutilizables y la comunicación con la API mediante React Query, incluida la carga de archivos de TPs. |
 | **Vanesa** | Backend | Diseñó el modelo de datos y los endpoints de la API, y organizó la capa de servicios y repositorios sobre Supabase. |
 | **Armando** | Backend | Implementó la autenticación, la autorización por rol (RBAC + RLS) y la validación de datos con Zod. |
-test
