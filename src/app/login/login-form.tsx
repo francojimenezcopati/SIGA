@@ -50,7 +50,7 @@ export function LoginForm() {
       <CardHeader>
         <CardTitle className="text-2xl">SIGA</CardTitle>
         <CardDescription>
-          Ingresá con tu cuenta institucional.
+          Ingresá con tu cuenta institucional · SIGA v1.0
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
