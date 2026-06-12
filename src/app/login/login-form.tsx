@@ -18,21 +18,18 @@ import {
 } from "@/components/ui/card";
 
 export function LoginForm() {
-  const router = useRouter();
-  const params = useSearchParams();
-  const [email, setEmail] = useState("");
+  const router   = useRouter();
+  const params   = useSearchParams();
+  const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading,  setLoading]  = useState(false);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setLoading(true);
 
     const supabase = createSupabaseBrowserClient();
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
 
     if (error) {
@@ -46,13 +43,12 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle className="text-2xl">SIGA</CardTitle>
-        <CardDescription>
-          Ingresá con tu cuenta institucional · SIGA v1.0
-        </CardDescription>
+    <Card className="w-full border-border/60">
+      <CardHeader className="space-y-1 pb-5">
+        <CardTitle className="text-2xl font-semibold">Iniciar sesión</CardTitle>
+        <CardDescription>Ingresá con tu cuenta institucional</CardDescription>
       </CardHeader>
+
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -63,8 +59,8 @@ export function LoginForm() {
               autoComplete="email"
               required
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="usuario@siga.test"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="usuario@institución.edu.ar"
             />
           </div>
           <div className="space-y-2">
@@ -75,13 +71,14 @@ export function LoginForm() {
               autoComplete="current-password"
               required
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </CardContent>
-        <CardFooter className="mt-6">
+
+        <CardFooter className="pt-2">
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Ingresando..." : "Ingresar"}
+            {loading ? "Verificando..." : "Ingresar"}
           </Button>
         </CardFooter>
       </form>
