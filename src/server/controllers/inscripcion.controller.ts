@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { z } from "zod";
 import { getAuthContext } from "@/server/lib/auth";
 import { createSupabaseServerClient } from "@/server/lib/supabase/server";
 import { InscripcionService } from "../services/inscripcion.service";
@@ -53,10 +54,16 @@ export class InscripcionController {
       const auth = await getAuthContext(supabase);
       if (!auth) throw unauthorized();
 
-      const { id } = context.params;
-      if (!id) throw badRequest("Missing enrollment ID");
+      // Validar UUID del ID de inscripción
+      const idResult = z
+        .string()
+        .uuid({ message: "ID de inscripción inválido" })
+        .safeParse(context.params.id);
+      if (!idResult.success) {
+        throw badRequest(idResult.error.issues[0].message);
+      }
 
-      await this.service.unenrollEstudiante(id, auth.userId, auth.role);
+      await this.service.unenrollEstudiante(idResult.data, auth.userId, auth.role);
       return ok({ success: true });
     } catch (error) {
       return handleApiError(error);
