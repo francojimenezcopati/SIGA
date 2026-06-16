@@ -15,22 +15,22 @@ export class InscripcionService {
     if (role === 'estudiante') {
       return this.repo.findByEstudianteId(userId);
     }
-    throw forbidden('Invalid or unauthorized role context');
+    throw forbidden('Rol no válido o sin permisos para esta operación');
   }
 
   async enrollEstudiante(userId: string, role: string, dto: CreateInscripcionDto) {
     if (role !== 'estudiante') {
-      throw forbidden('Only students can enroll in classes');
+      throw forbidden('Solo los estudiantes pueden inscribirse a materias');
     }
 
     const materiaExists = await this.repo.checkMateriaExists(dto.materia_id);
     if (!materiaExists) {
-      throw notFound('The requested class (materia) does not exist');
+      throw notFound('La materia solicitada no existe');
     }
 
     const existing = await this.repo.findExisting(userId, dto.materia_id);
     if (existing) {
-      throw conflict('You are already enrolled in this class');
+      throw conflict('Ya estás inscripto en esta materia');
     }
 
     return this.repo.create(userId, dto);
@@ -39,12 +39,12 @@ export class InscripcionService {
   async unenrollEstudiante(id: string, userId: string, role: string) {
     const record = await this.repo.findById(id);
     if (!record) {
-      throw notFound('Enrollment record not found');
+      throw notFound('La inscripción no fue encontrada');
     }
 
-    // RBAC + Ownership verification
+    // Verificación de RBAC y ownership
     if (role !== 'admin' && record.estudiante_id !== userId) {
-      throw forbidden('You do not have permission to delete this enrollment');
+      throw forbidden('No tenés permiso para eliminar esta inscripción');
     }
 
     return this.repo.delete(id);
