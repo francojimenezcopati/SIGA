@@ -36,20 +36,19 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
-  deploy:
-    name: Migrate · Deploy
+  migrate:
+    name: Migrate (Supabase)
     needs: ci
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    # Configurá estos secrets en el repo para habilitar el deploy automático.
-    # Si faltan, los pasos se saltean y el job pasa igual (no rompe CI):
-    #   SUPABASE_DB_URL  -> connection string de Postgres (para `db push`)
-    #   VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+    # El deploy de la app lo maneja Vercel via su Git integration (GitHub App),
+    # por eso este job solo aplica las migraciones de la base.
+    # Para que corra de verdad hay que cargar el secret en
+    # Settings -> Secrets and variables -> Actions:
+    #   SUPABASE_DB_URL -> connection string de Postgres (para `db push`)
+    # Si falta, los pasos se saltean y el job pasa igual (no rompe CI).
     env:
       SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
 
@@ -62,11 +61,3 @@ jobs:
       - name: Aplicar migraciones (supabase db push)
         if: ${{ env.SUPABASE_DB_URL != '' }}
         run: supabase db push --db-url "$SUPABASE_DB_URL"
-
-      - name: Deploy a Vercel (producción)
-        if: ${{ env.VERCEL_TOKEN != '' }}
-        run: |
-          npm install --global vercel@latest
-          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-          vercel build --prod --token="$VERCEL_TOKEN"
-          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
