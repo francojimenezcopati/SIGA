@@ -255,35 +255,6 @@ Doble barrera:
 
 ---
 
-## 8. Presentación (guía para la exposición)
-
-> Esta sección es una guía interna para preparar la presentación oral de 15 minutos. La rúbrica evalúa claridad, distribución del tiempo, participación grupal y recursos visuales.
-
-### Distribución sugerida del tiempo (15 min)
-
-| Bloque | Tiempo | Contenido |
-|--------|--------|-----------|
-| Introducción + problema/solución | 2 min | Secciones 1 |
-| Arquitectura | 4 min | Diagrama y decisiones (sección de mayor puntaje) |
-| Frontend + Backend | 4 min | Tecnologías, endpoints, organización |
-| Testing + CI/CD + Seguridad | 3 min | Estrategia y pipeline |
-| Demo / cierre | 2 min | Avances funcionales (si los hay) y conclusiones |
-
-### Distribución de roles (equipo de 5–7)
-
-- **Integrante 1:** problema, solución y usuarios.
-- **Integrante 2:** arquitectura y decisiones tecnológicas.
-- **Integrante 3:** frontend (componentes y navegación).
-- **Integrante 4:** backend (endpoints y patrones).
-- **Integrante 5:** testing, CI/CD y despliegue.
-- **Integrante 6/7:** seguridad y demo / cierre.
-
-### Recursos visuales recomendados
-
-Diapositivas con el diagrama de arquitectura, el listado de endpoints en formato tabla y, si hay tiempo, una demo en vivo o capturas del deployment de preview en Vercel.
-
----
-
 ## Equipo de desarrollo
 
 | Integrante | Rol | Función en el trabajo |
@@ -293,4 +264,3 @@ Diapositivas con el diagrama de arquitectura, el listado de endpoints en formato
 | **Sergio** | Frontend | Implementó los componentes reutilizables y la comunicación con la API mediante React Query, incluida la carga de archivos de TPs. |
 | **Vanesa** | Backend | Diseñó el modelo de datos y los endpoints de la API, y organizó la capa de servicios y repositorios sobre Supabase. |
 | **Armando** | Backend | Implementó la autenticación, la autorización por rol (RBAC + RLS) y la validación de datos con Zod. |
-test
